@@ -44,7 +44,7 @@ app.get("/pokemon", (req, res) => {
 
 });
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.send('welcome')
 })
 // app.get('/pokemon/:id', function (req, res, next) {
@@ -68,6 +68,6 @@ app.get("/", (req, res) => {
 
 // });
 
-app.listen(portprocess.env.PORT ?? port, () => {
+app.listen(process.env.PORT ?? port, () => {
   console.log(`${port} connected!`);
 });
