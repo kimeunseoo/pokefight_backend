@@ -12,6 +12,22 @@ app.use(cors());
 
 // app.use(express.json());
 
+app.get("/pokemon/:id/:info", (req, res) => {
+  try {
+    
+    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
+    const pokeApi = JSON.parse(dataJson);
+   
+    const { info } = req.params;
+
+    res.send(pokeApi[info]);
+
+  } catch (error) {
+    console.error(error.message);
+  }
+
+});
+
 
 app.get("/pokemon/:id", (req, res) => {
   try {
