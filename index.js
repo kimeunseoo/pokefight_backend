@@ -8,19 +8,10 @@ const port = 5001;
 
 app.use(cors());
 
+
+
 // app.use(express.json());
-app.get("/pokemon", (req, res) => {
-  try {
-    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
-    const pokeApi = JSON.parse(dataJson);
 
-    res.send(pokeApi);
-
-  } catch (error) {
-    console.error(error.message);
-  }
-
-});
 
 app.get("/pokemon/:id", (req, res) => {
   try {
@@ -40,6 +31,22 @@ app.get("/pokemon/:id", (req, res) => {
 
 });
 
+app.get("/pokemon", (req, res) => {
+  try {
+    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
+    const pokeApi = JSON.parse(dataJson);
+
+    res.send(pokeApi);
+
+  } catch (error) {
+    console.error(error.message);
+  }
+
+});
+
+app.get("/", (req, res) => {
+  res.send('welcome')
+})
 // app.get('/pokemon/:id', function (req, res, next) {
 //     res.json({msg: 'This is CORS-enabled for all origins!'})
 //   })
