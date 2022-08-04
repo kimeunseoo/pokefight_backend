@@ -68,6 +68,6 @@ app.get("/", (req, res) => {
 
 // });
 
-app.listen(port, () => {
-  console.log(port + " connected!");
+app.listen(portprocess.env.PORT ?? port, () => {
+  console.log(`${port} connected!`);
 });
