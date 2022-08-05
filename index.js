@@ -62,7 +62,7 @@ app.get("/pokemon", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.send('welcome')
+  res.send('hello pokemon')
 })
 // app.get('/pokemon/:id', function (req, res, next) {
 //     res.json({msg: 'This is CORS-enabled for all origins!'})
