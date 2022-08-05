@@ -20,7 +20,8 @@ app.get("/pokemon/:id/:info", (req, res) => {
    
     const { info } = req.params;
     
-    res.send(pokeApi.info);
+    // res.send(pokeApi[info]);
+    res.send('test');
 
   } catch (error) {
     console.error(error.message);
