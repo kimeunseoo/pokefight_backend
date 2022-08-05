@@ -17,11 +17,11 @@ app.get("/pokemon/:id/:info", (req, res) => {
     
     const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
     const pokeApi = JSON.parse(dataJson);
-   
+    const { id } = req.params;
     const { info } = req.params;
     
     // res.send(pokeApi[info]);
-    res.send(pokeApi);
+    res.send(pokeApi[id][info]);
 
   } catch (error) {
     console.error(error.message);
