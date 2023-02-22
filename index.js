@@ -2,12 +2,35 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const fs = require("fs");
+// const dotenv = require('envdot')
 // const pool = require('./db');
 const port = 5001;
-// const jsonData = require('./pokedex.json');
-
 app.use(cors());
+// const jsonData = require('./pokedex.json');
+const mongoose = require('mongoose')
+require("dotenv").config({ path: ".env" });
 
+mongoose.connect(process.env.MONGO_URL,{
+  user:process.env.MONGO_USER,
+  pass:process.env.MONGO_PASS,
+});
+
+mongoose.connection.on("connected", ()=>{
+  console.log("connected to mongoDB")
+})
+// connection.once /? on ?
+mongoose.connection.on("error", ()=>{
+  console.log("err")
+})
+
+// app.use('/routername', game/saverouter); <- Router라는 폴더를 만들고 그 안에 파일을 따로 user.js/ or save.js 따로 설정했을때.. ?
+
+app.post("/pokefightresult", async (req, res) => {
+  await pokefight.create({
+    name:req.body.winner
+  });
+  res.send("sended!");
+});
 
 
 // app.use(express.json());
@@ -60,6 +83,18 @@ app.get("/pokemon", (req, res) => {
   }
 
 });
+app.get("/pokefightResult", (req, res) => {
+  try {
+    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
+    const pokeApi = JSON.parse(dataJson);
+
+    res.send(pokeApi);
+
+  } catch (error) {
+    console.error(error.message);
+  }
+
+});
 
 app.get("*", (req, res) => {
   res.send('hello pokemon')
@@ -88,3 +123,6 @@ app.get("*", (req, res) => {
 app.listen(process.env.PORT ?? port, () => {
   console.log(`${port} connected!`);
 });
+
+
+module.exports = app;
