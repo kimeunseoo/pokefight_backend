@@ -106,7 +106,7 @@ app.get("/pokefightResult", (req, res) => {
 //   res.send("game result saved to database!!");
 // });
 
-app.post("/game/pokefightresult",(req, res)=>{
+app.post("/pokefightresult",(req, res)=>{
   pokefight.create({ name:req.body.winner})
   .then(function(){
     res.json('game result saved to database!')
