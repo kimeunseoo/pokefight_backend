@@ -6,7 +6,8 @@
     "fs": "^0.0.1-security",
     "mongoose": "^6.5.2",
     "nodemon": "^2.0.19",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "vercel": "^28.16.4"
   },
   "name": "server",
   "version": "1.0.0",
@@ -14,7 +15,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "build": "[my-framework] build --output public"
   },
   "keywords": [],
   "author": "",
