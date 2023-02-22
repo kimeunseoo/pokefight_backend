@@ -25,14 +25,40 @@ mongoose.connection.on("error", ()=>{
 
 // app.use('/routername', game/saverouter); <- Router라는 폴더를 만들고 그 안에 파일을 따로 user.js/ or save.js 따로 설정했을때.. ?
 
-app.post("/pokefightresult", async (req, res) => {
-  await pokefight.create({
-    name:req.body.winner
-  });
-  res.send("sended!");
+app.get("*", (req, res) => {
+  res.send('hello pokemon')
+})
+
+app.get("/pokemon", (req, res) => {
+  try {
+    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
+    const pokeApi = JSON.parse(dataJson);
+
+    res.send(pokeApi);
+
+  } catch (error) {
+    console.error(error.message);
+  }
+
 });
 
+app.get("/pokemon/:id", (req, res) => {
+  try {
+    
+    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
+    const pokeApi = JSON.parse(dataJson);
+    const { id } = req.params;
 
+    if(id <= 0){
+      id = 1;
+    } 
+    res.send(pokeApi[id-1]);
+
+  } catch (error) {
+    console.error(error.message);
+  }
+
+});
 // app.use(express.json());
 
 app.get("/pokemon/:id/:info", (req, res) => {
@@ -53,36 +79,6 @@ app.get("/pokemon/:id/:info", (req, res) => {
 });
 
 
-app.get("/pokemon/:id", (req, res) => {
-  try {
-    
-    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
-    const pokeApi = JSON.parse(dataJson);
-    const { id } = req.params;
-
-    if(id <= 0){
-      id = 1;
-    } 
-    res.send(pokeApi[id-1]);
-
-  } catch (error) {
-    console.error(error.message);
-  }
-
-});
-
-app.get("/pokemon", (req, res) => {
-  try {
-    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
-    const pokeApi = JSON.parse(dataJson);
-
-    res.send(pokeApi);
-
-  } catch (error) {
-    console.error(error.message);
-  }
-
-});
 app.get("/pokefightResult", (req, res) => {
   try {
     const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
@@ -96,9 +92,13 @@ app.get("/pokefightResult", (req, res) => {
 
 });
 
-app.get("*", (req, res) => {
-  res.send('hello pokemon')
-})
+app.post("/pokefightresult", async (req, res) => {
+  await pokefight.create({
+    name:req.body.winner
+  });
+  res.send("game result saved to database!!");
+});
+
 // app.get('/pokemon/:id', function (req, res, next) {
 //     res.json({msg: 'This is CORS-enabled for all origins!'})
 //   })
