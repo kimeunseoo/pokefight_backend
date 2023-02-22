@@ -7,7 +7,7 @@ const fs = require("fs");
 const port = 5001;
 app.use(cors());
 
-// const jsonData = require('./pokedex.json');
+const jsonData = require('./pokedex.json');
 
 const mongoose = require('mongoose');
 const ResultPoke = require("./model/ResultPoke");
@@ -31,22 +31,22 @@ app.get("/", (req, res) => {
   res.send('hello pokemon')
 })
 
-app.get("/pokemon", (req, res) => {
-  try {
-    const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
-    const pokeApi = JSON.parse(dataJson);
+// app.get("/pokemon", (req, res) => {
+//   try {
+//     const dataJson = fs.readFileSync("./pokedex.json", "utf-8");
+//     const pokeApi = JSON.parse(dataJson);
 
-    res.send(pokeApi);
+//     res.send(pokeApi);
 
-  } catch (error) {
-    console.error(error.message);
-  }
+//   } catch (error) {
+//     console.error(error.message);
+//   }
 
-});
+// });
 
-// app.get('/pokemon', (req, res)=>{
-//   res.send(jsonData)
-// })
+app.get('/pokemon', (req, res)=>{
+  res.send(jsonData)
+})
 
 app.get("/pokemon/:id", (req, res) => {
   try {
